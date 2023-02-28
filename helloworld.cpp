@@ -104,4 +104,83 @@ int main(){
             cout<<i<<endl;
         }
 
+        // Reverse a number
+        int dividend;
+        int divisor;
+        
+        cout<<"Please enter your dividend: ";
+        cin>>dividend;
+        cout<<"Please enyer your divisor: ";
+        cin>>divisor;
+        
+        int quotient = dividend/divisor;
+        int remainder = dividend % divisor;
+        
+        cout<<"My Quotient is: "<< quotient<<endl;
+        cout<<"My Remainder is: "<< remainder<<endl;
+
+
+        // Reverse a number
+        int n;
+        cout<<"enter number: ";
+        cin>>n;
+        
+        int ans = 0;
+        while(n!=0){
+            int rem = n%10;
+            ans = ans*10 + rem;
+            n/=10;
+        }
+        
+        cout<<"The answer is: " <<ans<<endl;
+
+        // Palindrome
+
+        int n;
+        cout<<"enter number: ";
+        cin>>n;
+        
+        int originalNumber = n;
+        int reversedNumber = 0;
+        
+        while(n!=0){
+            int rem = n%10;
+            reversedNumber = reversedNumber*10 + rem;
+            n/=10;
+        }
+        
+        cout<<"The reversedNumber is: " <<reversedNumber<<endl;
+        
+        //12321 -> palindrome number or not
+        
+        if(originalNumber == reversedNumber){
+            cout<<"The given number is palindrome.";
+        } else {
+            cout<<"The given number is not a palindrome.";
+        }
+  
+        // prime  number
+            int n;
+            cout<<"enter number: ";
+            cin>>n;
+            bool isPrime = true;
+            
+            if(n==0 || n==1){
+                isPrime = false;
+            }
+            
+            for(int i=2;i<n;i++){ // i<=n/2
+                if(n%i == 0){
+                    isPrime = false;
+                    break;
+                }
+            }
+            
+            if(isPrime == true){
+                cout<<"The number is prime";
+            } else {
+                cout<<"The number is not prime";
+            }
+
+    return 0;
 }
