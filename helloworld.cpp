@@ -182,5 +182,35 @@ int main(){
                 cout<<"The number is not prime";
             }
 
+            // count digits
+            int n;
+            cout<<"Enter number: ";
+            cin>>n;
+            
+            int count = 0;
+            while(n != 0){
+                n = n/10;
+                count++;
+            }
+            cout<<count<<endl;
+
+            // print all primes till N
+              int n;
+                cout<<"Enter number: ";
+                cin>>n;
+                
+                for(int i=2; i<=n; i++){
+                    bool isPrime = true;
+                    for(int j=2;j<=i/2;j++){ 
+                            if(i%j == 0){
+                                isPrime = false;
+                                break;
+                            }
+                    }
+                    if(isPrime){
+                        cout<<i<<" "<<endl;
+                    }
+                }
+
     return 0;
 }
