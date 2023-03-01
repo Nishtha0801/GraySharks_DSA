@@ -212,5 +212,32 @@ int main(){
                     }
                 }
 
+
+                // Pattern 1=======
+
+                int n;
+                cout<<"Enter number: ";
+                cin>>n;
+
+                for(int rows = 1; rows <= n; rows++) {
+                    for(int cst = 1; cst <= rows; cst++) {
+                        cout << "* ";
+                    }
+                    cout << endl;
+                }
+
+
+                // Pattern 2=========
+                    int n;
+                    cout<<"Enter number: ";
+                    cin>>n;
+
+                    for(int rows = n; rows >= 0; rows--) {
+                        for(int cst = 1; cst <= rows; cst++) {
+                            cout << "* ";
+                        }
+                        cout << endl;
+                    }
+
     return 0;
 }
