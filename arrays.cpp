@@ -5,14 +5,14 @@ using namespace std;
 
 
 int main(){
-    
-    vector<int>myArr = {1,2,3,4,5};
-    myArr.push_back(5);
-    myArr.push_back(10);
-    myArr.push_back(15);
+     vector<int> vector1 = {1, 2, 3, 4, 5};
+    // // vector<int> myArr= {1,2,3,4,5};
+    // // myArr.push_back(5);
+    // // myArr.push_back(10);
+    // // myArr.push_back(15);
 
-    for(int i=0; i<myArr.size(); i++){
-       cout<<myArr[i]<<" ";
+    for(int i=0; i<vector1.size(); i++){
+       cout<<vector1[i]<<" ";
     }
 
     // int arr[5] = {1,2,3,4,5}; 
