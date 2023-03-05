@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int findElement(vector<int> myArr, int num){
+int findElement(vector<int> &myArr, int num){
     for(int i=0;i<myArr.size();i++){
         if(myArr[i] == num){
             return i; // returning index here
@@ -13,7 +13,7 @@ int findElement(vector<int> myArr, int num){
     return -1; // element is not present in the array
 }
 
-int minimumElement(vector<int> myArr){
+int minimumElement(vector<int> &myArr){
     int minEle = (int)1e9;
     for(int i=0;i<myArr.size();i++){
         minEle = min(myArr[i], minEle);
@@ -21,7 +21,7 @@ int minimumElement(vector<int> myArr){
     return minEle;
 }
 
-int maximumElement(vector<int> myArr){
+int maximumElement(vector<int> &myArr){
     int maxEle = -(int)1e9;
     for(int i=0;i<myArr.size(); i++){
         maxEle = max(myArr[i], maxEle);
@@ -29,6 +29,20 @@ int maximumElement(vector<int> myArr){
     return maxEle;
 }
 
+void swap(vector<int> &arr, int i, int j){
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+    return;
+}
+void reverse(vector<int> &arr, int si, int ei){
+    while(si < ei){
+        swap(arr,si,ei);
+        si++;
+        ei--;
+    }
+
+}
 int main(){
     //Q1 Find an element in the array(arr, num)
     //q2 Find the minimum element in the array.
@@ -39,13 +53,19 @@ int main(){
         cin>>myArr[i]; 
     }
 
-    // for(int i=0;i<myArr.size(); i++){
-    //     cout<<myArr[i]<<" ";
-    // }
+    for(int i=0;i<myArr.size(); i++){
+        cout<<myArr[i]<<" ";
+    }
     cout<<endl;
     // cout<<findElement(myArr, 5);
     // cout<<minimumElement(myArr);
-    cout<<maximumElement(myArr);
+    // cout<<maximumElement(myArr);
+    // swap(myArr, 0, myArr.size()-1);
+    reverse(myArr, 0, myArr.size()-1);
+     for(int i=0;i<myArr.size(); i++){
+        cout<<myArr[i]<<" ";
+    }
+
 
     
 }
