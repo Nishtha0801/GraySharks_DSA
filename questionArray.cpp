@@ -21,6 +21,14 @@ int minimumElement(vector<int> myArr){
     return minEle;
 }
 
+int maximumElement(vector<int> myArr){
+    int maxEle = -(int)1e9;
+    for(int i=0;i<myArr.size(); i++){
+        maxEle = max(myArr[i], maxEle);
+    }
+    return maxEle;
+}
+
 int main(){
     //Q1 Find an element in the array(arr, num)
     //q2 Find the minimum element in the array.
@@ -36,7 +44,8 @@ int main(){
     // }
     cout<<endl;
     // cout<<findElement(myArr, 5);
-    cout<<minimumElement(myArr);
+    // cout<<minimumElement(myArr);
+    cout<<maximumElement(myArr);
 
     
 }
