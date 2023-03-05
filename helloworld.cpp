@@ -300,7 +300,66 @@ int main(){
                         }
                         cout<<endl;
                     }
-   
+                // homework===================== diamond pattern (Stars)
+                            int n;
+                            cin>>n;
+                            
+                            int sp = n/2;
+                            int st = 1;
+                            
+                            for(int row = 1; row<=n; row++){
+                                for(int col=1; col<=sp; col++){
+                                    cout<<"-";
+                                }
+                                for(int col=1; col<=st; col++){
+                                    cout<<"*";
+                                }
+                                if(row<=n/2){
+                                    st+=2;
+                                    sp--;
+                                } else {
+                                    sp++;
+                                    st-=2;
+                                }
+                                cout<<endl;
+                                
+                            }
+
+                // Homework pattern ========= (diamond m numbers vala)
+
+                    int n;
+                    cout<<"Enter number: ";
+                    cin>>n;
+                    
+                    int sp = n/2;
+                    int st = 1;
+                    int val = 1;
+                    for(int row = 1; row<=n; row++){
+                        for(int col=1; col<=sp; col++){
+                            cout<<"-";
+                        }
+                        int temp = val;
+                        for(int col=1; col<=st; col++){
+                            cout<<temp;
+                            if(col <= st/2){
+                                temp++;
+                            } else {
+                                temp--;
+                            }
+                        }
+                        if(row<=n/2){
+                            st+=2;
+                            sp--;
+                            val++;
+                        } else {
+                            sp++;
+                            st-=2;
+                            val--;
+                        }
+                
+                        cout<<endl;
+                
+                     }
 
     return 0;
 }
