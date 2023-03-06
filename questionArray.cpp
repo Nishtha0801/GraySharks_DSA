@@ -114,13 +114,24 @@ void subTwoArrays(vector<int> &a, vector<int> &b){
 
 }
 
+void subArray(vector<int> &a){
+    for(int i=0;i<a.size();i++){
+        for(int j=i;j<a.size();j++){
+            for(int k=i;k<=j;k++){
+                cout<<a[k]<< " ";
+            }
+        }
+        cout<<endl;
+    }
+}
+
 
 int main(){
     //Q1 Find an element in the array(arr, num)
     //q2 Find the minimum element in the array.
     //q3 Find the maximum element in the array.
 
-    vector<int>myArr = {3,3,3};
+    vector<int>myArr = {3,3,0};
     vector<int>arr = {9,9};
     // for(int i=0; i<myArr.size();i++){
     //     cin>>myArr[i]; 
