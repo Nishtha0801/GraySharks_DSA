@@ -120,6 +120,7 @@ void subArray(vector<int> &a){
             for(int k=i;k<=j;k++){
                 cout<<a[k]<< " ";
             }
+            cout<<endl;
         }
         cout<<endl;
     }
@@ -131,7 +132,7 @@ int main(){
     //q2 Find the minimum element in the array.
     //q3 Find the maximum element in the array.
 
-    vector<int>myArr = {3,3,0};
+    vector<int>myArr = {1,2,3,4};
     vector<int>arr = {9,9};
     // for(int i=0; i<myArr.size();i++){
     //     cin>>myArr[i]; 
@@ -150,7 +151,8 @@ int main(){
     //     cout<<myArr[i]<<" ";
     // }
     // addArrays(myArr, arr);
-    subTwoArrays(myArr, arr);
+    // subTwoArrays(myArr, arr);
+    subArray(myArr);
 
 
     
