@@ -78,14 +78,50 @@ void addArrays(vector<int> &a, vector<int> &b){
     return;
 }
 
+void subTwoArrays(vector<int> &a, vector<int> &b){
+    int n = a.size();
+    int m = b.size();
+    int i = n-1;
+    int j = m-1;
+    vector<int>ans(max(n,m), 0);
+    int k = ans.size() - 1;
+
+    int borrow = 0;
+    while(k>=0){
+        int diff = borrow;
+        if(i>=0){
+            diff+=a[i];
+            i--;
+        } 
+        if(j>=0){
+            diff-=b[j];
+            j--;
+        }
+        if(diff<0){
+            diff+=10;
+            borrow = -1;
+        } else {
+            borrow = 0;
+        }
+        ans[k] = diff;
+        k--;
+    }
+
+    for(int i=0;i<ans.size(); i++){
+        cout<<ans[i]<<" ";
+    }
+
+
+}
+
 
 int main(){
     //Q1 Find an element in the array(arr, num)
     //q2 Find the minimum element in the array.
     //q3 Find the maximum element in the array.
 
-    vector<int>myArr = {9,5,4,9};
-    vector<int>arr = {2,1,4};
+    vector<int>myArr = {3,3,3};
+    vector<int>arr = {9,9};
     // for(int i=0; i<myArr.size();i++){
     //     cin>>myArr[i]; 
     // }
@@ -102,7 +138,8 @@ int main(){
     //  for(int i=0;i<myArr.size(); i++){
     //     cout<<myArr[i]<<" ";
     // }
-    addArrays(myArr, arr);
+    // addArrays(myArr, arr);
+    subTwoArrays(myArr, arr);
 
 
     
