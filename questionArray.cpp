@@ -43,7 +43,18 @@ void reverse(vector<int> &arr, int si, int ei){
     }
 
 }
+void rotate(vector<int> &arr, int k){
+    k = k % arr.size();
 
+    int i = 0;
+    int j = arr.size()-1;
+
+    reverse(arr, i, j);
+    reverse(arr, 0, k-1);
+    reverse(arr, k, j);
+
+    return;
+}
 void addArrays(vector<int> &a, vector<int> &b){
     int n = a.size();
     int m = b.size();
@@ -132,7 +143,7 @@ int main(){
     //q2 Find the minimum element in the array.
     //q3 Find the maximum element in the array.
 
-    vector<int>myArr = {1,2,3,4};
+    vector<int>myArr = {1,2,3,4,5,6,7};
     vector<int>arr = {9,9};
     // for(int i=0; i<myArr.size();i++){
     //     cin>>myArr[i]; 
@@ -152,8 +163,10 @@ int main(){
     // }
     // addArrays(myArr, arr);
     // subTwoArrays(myArr, arr);
-    subArray(myArr);
-
-
+    // subArray(myArr);
+    rotate(myArr,8);
+    for(int i=0;i<myArr.size(); i++){
+        cout<<myArr[i]<<" ";
+    }
     
 }
