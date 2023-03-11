@@ -136,6 +136,24 @@ void subArray(vector<int> &a){
         cout<<endl;
     }
 }
+void segregateZeroesAndOnes(vector<int> &arr){
+    if(arr.size() == 0){
+        return;
+    }
+
+    int p = -1;
+    int idx = 0;
+    int n = arr.size();
+
+    while(idx < n){
+        if(arr[idx] == 0){
+            p++;
+            swap(arr, p, idx);
+        }
+        idx++;
+    }
+    return;
+}
 
 
 int main(){
@@ -144,7 +162,7 @@ int main(){
     //q3 Find the maximum element in the array.
 
     vector<int>myArr = {1,2,3,4,5,6,7};
-    vector<int>arr = {9,9};
+    vector<int>arr = {0,0,1,1,0,0,1,1,0,0,0};
     // for(int i=0; i<myArr.size();i++){
     //     cin>>myArr[i]; 
     // }
@@ -164,9 +182,10 @@ int main(){
     // addArrays(myArr, arr);
     // subTwoArrays(myArr, arr);
     // subArray(myArr);
-    rotate(myArr,8);
-    for(int i=0;i<myArr.size(); i++){
-        cout<<myArr[i]<<" ";
+    // rotate(myArr,8);
+    segregateZeroesAndOnes(arr);
+    for(int i=0;i<arr.size(); i++){
+        cout<<arr[i]<<" ";
     }
     
 }
