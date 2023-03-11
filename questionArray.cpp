@@ -155,6 +155,25 @@ void segregateZeroesAndOnes(vector<int> &arr){
     return;
 }
 
+void segregatePositiveAndNegative(vector<int> &arr){
+    if(arr.size() == 0){
+        return;
+    }
+
+    int p = -1;
+    int idx = 0;
+    int n = arr.size();
+
+    while(idx < n){
+        if(arr[idx] >= 0){
+            p++;
+            swap(arr, p, idx);
+        }
+        idx++;
+    }
+    return;
+}
+
 
 int main(){
     //Q1 Find an element in the array(arr, num)
@@ -162,7 +181,8 @@ int main(){
     //q3 Find the maximum element in the array.
 
     vector<int>myArr = {1,2,3,4,5,6,7};
-    vector<int>arr = {0,0,1,1,0,0,1,1,0,0,0};
+    // vector<int>arr = {0,0,1,1,0,0,1,1,0,0,0};
+    vector<int>arr = {4, -3, 6, 7, 2, -8, -9, 10, 11, 12, -19};
     // for(int i=0; i<myArr.size();i++){
     //     cin>>myArr[i]; 
     // }
@@ -183,7 +203,8 @@ int main(){
     // subTwoArrays(myArr, arr);
     // subArray(myArr);
     // rotate(myArr,8);
-    segregateZeroesAndOnes(arr);
+    // segregateZeroesAndOnes(arr);
+    segregatePositiveAndNegative(arr);
     for(int i=0;i<arr.size(); i++){
         cout<<arr[i]<<" ";
     }
