@@ -19,10 +19,16 @@ void bubbleSort(vector<int> &arr){
 }
 
 int main(){
-    vector<int>myArr = {7,6,5,4,3,2,1};
-    bubbleSort(myArr);
-    for(int i=0;i<myArr.size(); i++){
-        cout<<myArr[i]<<" ";
+    vector<int>myArr = {7,6,9,14,3,2,1};
+    // bubbleSort(myArr);
+    // sort(myArr.begin(), myArr.end()); // ascending order
+    sort(myArr.begin(), myArr.end(), greater<int>()); //descending order
+    // for(int i=0;i<myArr.size(); i++){
+    //     cout<<myArr[i]<<" ";
+    // }
+    // for each loop ===========================
+    for(int ele : myArr){
+        cout<<ele<<" ";
     }
 
 }

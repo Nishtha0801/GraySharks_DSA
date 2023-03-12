@@ -174,6 +174,74 @@ void segregatePositiveAndNegative(vector<int> &arr){
     return;
 }
 
+    void sortColors(vector<int>& arr) {
+        if(arr.size() == 0){
+            return;
+        }
+        int n = arr.size() ;
+        int p1 = -1;
+        int idx = 0;
+        int p2 = n-1;
+
+        while(idx <= p2){
+            if(arr[idx] == 0){
+                p1++;
+                swap(arr, idx, p1);
+                idx++;
+            } else if(arr[idx] == 2){
+                swap(arr, idx, p2);
+                p2--;
+            } else {
+                idx++;
+            }
+        }
+    }
+
+    // 1480
+     vector<int> runningSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>ans(n);
+        int sum = 0;
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+            ans[i] = sum;
+        }
+        return ans;
+    }
+
+    //1929
+      vector<int> getConcatenation(vector<int>& nums) {
+        vector<int>ans;
+        int n = nums.size();
+        for(int i=0;i<2*n;i++){
+            ans.push_back(nums[i%n]);
+        }
+        return ans;
+    }
+
+    //1365
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+            int count = 0;
+            for(int j=0;j<n;j++){
+                if(nums[j] < nums[i]){
+                    count++;
+                }
+            }
+            ans.push_back(count);
+        }
+        return ans;
+    }
+
+    //leetcode 215
+    int findKthLargest(vector<int>& arr, int k) {
+        sort(arr.begin(), arr.end(), greater<int>());
+        return arr[k-1];
+    }
+
+
 
 int main(){
     //Q1 Find an element in the array(arr, num)
