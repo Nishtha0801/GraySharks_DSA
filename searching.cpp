@@ -73,15 +73,37 @@ int lastIndex(vector<int> &arr, int data){
     return -1;
 }
 
-
+int nearestIndex(vector<int> &arr, int data){
+    int si = 0;
+    int ei = arr.size()-1;
+    int n = arr.size();
+    if(data < arr[0]){
+        return 0;
+    }
+    if(data > arr[arr.size()-1]){
+        return n;
+    }
+    while(si<=ei){
+        int mid = (si + ei)/2;
+        if(arr[mid] == data){
+            return mid;
+        } else if(arr[mid] > data){
+            ei = mid-1;
+        } else {
+            si = mid+1;
+        }
+    }
+    return ((data-arr[ei] < arr[si]-data)? ei : si);
+}
 
 int main(){
    
-    vector<int>myArr = {1,2,2,2,2,2,3,4,5,6,7,8,9,9,9,9};
-    int data = 9;
+    vector<int>myArr = {1,3,12,14,23,34,55,65,75,78};
+    int data = 20;
 
     // cout<<linearSearch(myArr, data)<<endl;
     // cout<<binarySearch(myArr, data)<<endl;
     // cout<<firstIndex(myArr, data);
-    cout<<lastIndex(myArr, data);
+    // cout<<lastIndex(myArr, data);
+    cout<<nearestIndex(myArr, data);
 }

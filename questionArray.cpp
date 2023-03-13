@@ -290,6 +290,28 @@ void segregatePositiveAndNegative(vector<int> &arr){
 
     }
 
+    // leetcode 35
+       int searchInsert(vector<int>& nums, int target) {
+        int si = 0;
+        int ei = nums.size()-1;
+        int n= nums.size();
+        if(target<=nums[0]){
+            return 0;
+        }
+        if(target>nums[n-1]){
+            return n;
+        }
+        while(si<ei){
+            int mid = (si+ei)/2;
+            if(nums[mid] < target){
+                si = mid+1;
+            } else {
+                ei = mid;
+            }
+        }
+        return ei;
+    }
+
 
 
 int main(){
