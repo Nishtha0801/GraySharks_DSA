@@ -241,6 +241,55 @@ void segregatePositiveAndNegative(vector<int> &arr){
         return arr[k-1];
     }
 
+    // leetcode 34
+        int firstIndex(vector<int> &arr, int data){
+        int si = 0;
+        int ei = arr.size()-1;
+
+        while(si <= ei){
+            int mid = (si+ei)/2;
+            if(arr[mid] == data){
+                if(mid-1>=0 && arr[mid-1] == data){
+                    ei = mid-1;
+                } else{
+                    return mid;
+                }
+            } else if(arr[mid] > data){
+                ei = mid - 1;
+            } else {
+                si = mid+1;
+            }
+        }
+        return -1;
+    }
+
+    int lastIndex(vector<int> &arr, int data){
+        int si = 0, ei = arr.size()-1;
+        while(si<=ei){
+            int mid = (si+ei)/2;
+            if(arr[mid] == data){
+                if(mid+1 < arr.size() && arr[mid+1] == data){
+                    si=mid+1;
+                } else {
+                    return mid;
+                }
+            } else if(arr[mid] > data){
+                ei = mid-1;
+            } else {
+                si = mid+1;
+            }
+        }
+        return -1;
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int>ans(2);
+        ans[0] = firstIndex(nums, target);
+        ans[1] = lastIndex(nums, target);
+
+        return ans;
+
+    }
+
 
 
 int main(){
