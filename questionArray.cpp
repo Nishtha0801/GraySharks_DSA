@@ -312,6 +312,74 @@ void segregatePositiveAndNegative(vector<int> &arr){
         return ei;
     }
 
+    // leetcode 33
+   int search(vector<int>& arr, int data) {
+        int n = arr.size();
+
+        int si = 0;
+        int ei = n-1;
+
+        while(si<=ei){
+            int mid = (si+ei)/2;
+            if(arr[mid]==data){
+                return mid;
+            } 
+
+            if(arr[si] <= arr[mid]){ // to check whether this region is sorted or not
+                if(arr[si] <= data && data < arr[mid]){
+                    ei = mid-1;
+                } else {
+                    si = mid+1;
+                }
+
+            } else {
+                if(arr[mid] < data && data <= arr[ei]){
+                    si = mid +1;
+                } else {
+                    ei = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    // leetcode 1
+     vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        vector<int>ans(2);
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(nums[i] + nums[j] == target){
+                    ans[0] = i;
+                    ans[1] = j;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+
+    //leetcode 167
+    vector<int> twoSum(vector<int>& arr, int data) {
+        // binary search
+        vector<int>ans(2,0);
+        int si = 0;
+        int ei = arr.size()-1;
+        while(si<ei){
+            int sum = arr[si] + arr[ei];
+            if(sum == data){
+                ans[0] = si+1;
+                ans[1] = ei+1;
+                return ans;
+            }
+            else if(sum<data){
+                si++;
+            } else{
+                ei--;
+            }
+        }
+        return ans;
+    }
 
 
 int main(){
