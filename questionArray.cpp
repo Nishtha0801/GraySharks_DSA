@@ -381,6 +381,70 @@ void segregatePositiveAndNegative(vector<int> &arr){
         return ans;
     }
 
+    // leetcode 153
+     int findMin(vector<int>& arr) {
+        int si = 0;
+        int ei = arr.size()-1;
+
+        if(arr[si] <= arr[ei]){ // my array is sorted
+            return arr[si];
+        }
+
+        while(si<ei){
+            int mid = (si+ei)/2;
+            if(arr[mid] < arr[ei]){
+                ei = mid;
+            } else {
+                si = mid+1;
+            }
+        }
+        return arr[si];
+    }
+
+    // leetcode 15
+     vector<vector<int>> threeSum(vector<int> &arr)
+{
+    sort(arr.begin(), arr.end()); // java : Arrays.sort(arr);
+
+//    sort(arr.begin(), arr.end(),[](int& a,int& b){
+//        return b < a; // replace '-' with '<';
+//    });
+
+    int n = arr.size();
+    int data = 0;
+    vector<vector<int>> res;
+
+    for (int i = 0; i < n; i++)
+    {
+        while (i != 0 && i < n && arr[i] == arr[i - 1]){
+            i++;
+        }  
+        int j = i + 1, k = n - 1;
+
+        while (j < k)
+        {
+            int sum = arr[i] + arr[j] + arr[k];
+            if (sum == data)
+            {
+                res.push_back({arr[i], arr[j], arr[k]});
+                j++;
+                k--;
+
+                while (j < k && arr[j] == arr[j - 1])
+                    j++;
+                while (j < k && arr[k] == arr[k + 1])
+                    k--;
+            }
+            else if (sum < data)
+                j++;
+            else
+                k--;
+        }
+    }
+
+    return res;
+}
+
 
 int main(){
     //Q1 Find an element in the array(arr, num)
