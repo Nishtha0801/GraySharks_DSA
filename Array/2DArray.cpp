@@ -1,6 +1,7 @@
 // Online C++ compiler to run C++ program online
 #include <iostream>
 #include <vector>
+#include<algorithm>
 
 using namespace std;
 
@@ -29,6 +30,55 @@ void display(vector<vector<int>> &res)
 }
 
 // maximum ele 
+int maximum(vector<vector<int>> &res){
+    int maxEle = -(int)1e9;
+    for(vector<int>vec : res){
+        for(int ele: vec){
+            maxEle = max(maxEle,ele);
+        }
+    }
+    return maxEle;
+}
+
+// minimum ele
+int minimum(vector<vector<int>> &res){
+    int minEle = (int)1e9;
+    for(vector<int>vec : res){
+        for(int ele: vec){
+            minEle = min(minEle,ele);
+        }
+    }
+    return minEle;
+}
+
+// find data
+bool find(vector<vector<int>> &res, int target){
+    for(vector<int>vec : res){
+        for(int ele: vec){
+            if(ele == target){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void waveTraversalLeftRight(vector<vector<int>> &res){
+    int m = res.size();
+    int n = res[0].size();
+    for(int i=0;i<m;i++){
+        if(i%2 == 0){
+            for(int j=0;j<n;j++){
+                cout<<res[i][j]<<" ";
+            }
+        } else {
+            for(int j=n-1;j>=0;j--){
+                cout<<res[i][j]<<" ";
+            }
+        }
+    }
+
+}
 
 
 int main()
@@ -44,5 +94,7 @@ int main()
       {7,8,9},  
     };
     display(res);
+    cout<<maximum(res)<<endl;
+    waveTraversalLeftRight(res);
     return 0;
 }
