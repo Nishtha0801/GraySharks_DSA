@@ -1,7 +1,7 @@
 // Online C++ compiler to run C++ program online
 #include <iostream>
 #include <vector>
-#include<algorithm>
+#include <algorithm>
 
 using namespace std;
 
@@ -29,33 +29,43 @@ void display(vector<vector<int>> &res)
     }
 }
 
-// maximum ele 
-int maximum(vector<vector<int>> &res){
+// maximum ele
+int maximum(vector<vector<int>> &res)
+{
     int maxEle = -(int)1e9;
-    for(vector<int>vec : res){
-        for(int ele: vec){
-            maxEle = max(maxEle,ele);
+    for (vector<int> vec : res)
+    {
+        for (int ele : vec)
+        {
+            maxEle = max(maxEle, ele);
         }
     }
     return maxEle;
 }
 
 // minimum ele
-int minimum(vector<vector<int>> &res){
+int minimum(vector<vector<int>> &res)
+{
     int minEle = (int)1e9;
-    for(vector<int>vec : res){
-        for(int ele: vec){
-            minEle = min(minEle,ele);
+    for (vector<int> vec : res)
+    {
+        for (int ele : vec)
+        {
+            minEle = min(minEle, ele);
         }
     }
     return minEle;
 }
 
 // find data
-bool find(vector<vector<int>> &res, int target){
-    for(vector<int>vec : res){
-        for(int ele: vec){
-            if(ele == target){
+bool find(vector<vector<int>> &res, int target)
+{
+    for (vector<int> vec : res)
+    {
+        for (int ele : vec)
+        {
+            if (ele == target)
+            {
                 return true;
             }
         }
@@ -63,38 +73,110 @@ bool find(vector<vector<int>> &res, int target){
     return false;
 }
 
-void waveTraversalLeftRight(vector<vector<int>> &res){
+void waveTraversalLeftRight(vector<vector<int>> &res)
+{
     int m = res.size();
     int n = res[0].size();
-    for(int i=0;i<m;i++){
-        if(i%2 == 0){
-            for(int j=0;j<n;j++){
-                cout<<res[i][j]<<" ";
+    for (int i = 0; i < m; i++)
+    {
+        if (i % 2 == 0)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cout << res[i][j] << " ";
             }
-        } else {
-            for(int j=n-1;j>=0;j--){
-                cout<<res[i][j]<<" ";
+        }
+        else
+        {
+            for (int j = n - 1; j >= 0; j--)
+            {
+                cout << res[i][j] << " ";
             }
         }
     }
-
 }
 
+// leetcode 867
+vector<vector<int>> transpose(vector<vector<int>> &arr)
+{
+    vector<vector<int>> ans(arr[0].size(), vector<int>(arr.size(), 0));
+    for (int i = 0; i < arr.size(); i++)
+    {
+        for (int j = 0; j < arr[0].size(); j++)
+        {
+            ans[j][i] = arr[i][j];
+        }
+    }
+    return ans;
+}
+
+// leetcode 498
+vector<int> findDiagonalOrder(vector<vector<int>> &arr)
+{
+
+    int n = arr.size();
+    int m = arr[0].size();
+    vector<int> ans(n * m, 0);
+    int row = 0;
+    int col = 0;
+    int dir = 1;
+    for (int i = 0; i < ans.size(); i++)
+    {
+        ans[i] = arr[row][col];
+        if (dir == 1)
+        { // diagonal
+            if (col == m - 1)
+            {
+                row++;
+                dir = -1;
+            }
+            else if (row == 0)
+            {
+                col++;
+                dir = -1;
+            }
+            else
+            {
+                row--;
+                col++;
+            }
+        }
+        else
+        { // anti-diagonal
+            if (row == n - 1)
+            {
+                col++;
+                dir = 1;
+            }
+            else if (col == 0)
+            {
+                row++;
+                dir = 1;
+            }
+            else
+            {
+                row++;
+                col--;
+            }
+        }
+    }
+    return ans;
+}
 
 int main()
 {
-    
+
     int m = 2;
     int n = 3;
     // vector<vector<int>> res(m, vector<int>(n, 0));
     // input(res,m,n);
-    vector<vector<int>>res = {
-      {1,2,3},
-      {4,5,6},
-      {7,8,9},  
+    vector<vector<int>> res = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
     };
     display(res);
-    cout<<maximum(res)<<endl;
+    cout << maximum(res) << endl;
     waveTraversalLeftRight(res);
     return 0;
 }
