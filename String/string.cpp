@@ -126,6 +126,42 @@ void generatePalindromicSubstrings(string &str)
     }
 }
 
+// leetcode 3
+
+int lengthOfLongestSubstring(string s)
+{
+    int n = s.length();
+    if (n <= 1)
+    {
+        return n;
+    }
+
+    int si = 0;
+    int ei = 0;
+    int count = 0;
+    int len = 0;
+
+    vector<int> map(128, 0);
+
+    while (ei < n)
+    {
+        if (map[s[ei++]]++ > 0)
+        {
+            count++;
+        }
+
+        while (count > 0)
+        {
+            if (map[s[si++]]-- > 1)
+            {
+                count--;
+            }
+        }
+
+        len = max(len, ei - si);
+    }
+    return len;
+}
 int main()
 {
     string str = "Nishtha Goyal";
