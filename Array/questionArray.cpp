@@ -445,6 +445,64 @@ void segregatePositiveAndNegative(vector<int> &arr){
     return res;
 }
 
+//leetcode 485
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int n = nums.size();
+        int si = 0;
+        int ei =0;
+        int count =0;
+        int len = 0;
+        while(ei<n){
+            if(nums[ei++] == 0){
+                count++;
+            }
+
+            while(count>0){
+                if(nums[si++] == 0){
+                    count--;
+                }
+            }
+            len = max(len, ei-si);
+        }
+        return len;
+    }
+
+// leetcode 1004
+ int longestOnes(vector<int>& nums, int k) {
+          int n = nums.size();
+        int si = 0;
+        int ei =0;
+        int count =0;
+        int len = 0;
+        while(ei<n){
+            if(nums[ei++] == 0){
+                count++;
+            }
+
+            while(count>k){
+                if(nums[si++] == 0){
+                    count--;
+                }
+            }
+            len = max(len, ei-si);
+        }
+        return len;
+    }
+
+    //leetcode 53
+     int maxSubArray(vector<int>& nums) {
+        int gMax = -(int)1e9;
+        int runningSum = 0;
+        for(int ele: nums){
+            runningSum+=ele;
+            gMax = max(gMax, runningSum);
+            if(runningSum <= 0){
+                runningSum = 0;
+            }
+        }
+        return gMax;
+    }
+
 
 int main(){
     //Q1 Find an element in the array(arr, num)

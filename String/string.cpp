@@ -162,6 +162,88 @@ int lengthOfLongestSubstring(string s)
     }
     return len;
 }
+
+// lintcode 928
+int lengthOfLongestSubstringTwoDistinct(string &s)
+{
+    // Write your code here
+    int n = s.length();
+    int si = 0, ei = 0, len = 0, distinctCount = 0;
+
+    vector<int> freq(128, 0);
+    while (ei < n)
+    {
+        if (freq[s[ei++]]++ == 0)
+        {
+            distinctCount++;
+        }
+
+        while (distinctCount > 2)
+        {
+            if (freq[s[si++]]-- == 1)
+            {
+                distinctCount--;
+            }
+        }
+        len = max(len, ei - si);
+    }
+    return len;
+}
+
+// lintcode 386
+int lengthOfLongestSubstringKDistinct(string &s, int k)
+{
+    // write your code here
+    int n = s.length();
+    int si = 0, ei = 0, len = 0, distinctCount = 0;
+
+    vector<int> freq(128, 0);
+    while (ei < n)
+    {
+        if (freq[s[ei++]]++ == 0)
+        {
+            distinctCount++;
+        }
+
+        while (distinctCount > k)
+        {
+            if (freq[s[si++]]-- == 1)
+            {
+                distinctCount--;
+            }
+        }
+        len = max(len, ei - si);
+    }
+    return len;
+}
+
+// leetcode 1456
+    bool isVowel(char ch){
+        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'){
+            return true;
+        }
+        return false;
+    }
+    int maxVowels(string s, int k) {
+        int n = s.length();
+        int si = 0, ei = 0, vowelCount = 0, ans = 0;
+
+        while(ei<n){
+            if(isVowel(s[ei++])){
+                vowelCount++;
+            }
+            if(ei-si == k){
+                ans = max(ans, vowelCount);
+                
+                if(isVowel(s[si++])){
+                    vowelCount--;
+                }
+            }
+
+            
+        }
+        return ans;
+    }
 int main()
 {
     string str = "Nishtha Goyal";

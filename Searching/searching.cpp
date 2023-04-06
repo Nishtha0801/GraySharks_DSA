@@ -96,6 +96,30 @@ int nearestIndex(vector<int> &arr, int data){
     return ((data-arr[ei] < arr[si]-data)? ei : si);
 }
 
+//leetcode 74
+ bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        int si = 0;
+        int ei = (n*m)-1;
+
+        while(si<=ei){
+            int mid = (si+ei)/2;
+            int val = matrix[mid/m][mid%m];
+            if(val == target){
+                return true;
+            } else if(val<target){
+                si = mid+1;
+            } else {
+                ei = mid-1;
+            }
+        }
+
+        return false;
+
+    }
+
 int main(){
    
     vector<int>myArr = {1,3,12,14,23,34,55,65,75,78};
