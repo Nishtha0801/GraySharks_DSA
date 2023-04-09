@@ -1,6 +1,7 @@
 #include <iostream>
 #include<vector>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -79,6 +80,69 @@ void freqMap_pos(string &str){
         return map.size() == 26;
     }
 
+    // leetcode 349
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        vector<int>ans;
+        unordered_map<int, int>map;
+        for(int ele: nums1){
+            map[ele]++;
+        }
+
+        for(int ele : nums2){
+            if(map.find(ele) != map.end()){
+                ans.push_back(ele);
+                map.erase(ele);
+            }
+        }
+        return ans;
+    }
+
+    // leetcode 1207
+      bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int, int>map;
+        for(int i=0;i<arr.size();i++){
+            map[arr[i]]++;
+        }
+
+        unordered_set<int>set;
+
+        for(auto keyValue : map){
+           int x = keyValue.second;
+           if(set.find(x) != set.end()){
+               return false;
+           } else {
+               set.insert(x);
+           }
+        }
+        return true;
+    }
+
+    // leetcode 2085
+       int countWords(vector<string>& words1, vector<string>& words2) {
+        unordered_map<string, int>map1;
+        unordered_map<string, int>map2;
+
+        int count = 0;
+        for(int i=0; i<words1.size(); i++){
+            map1[words1[i]]++;
+        }
+
+        for(int i=0; i<words2.size(); i++){
+            map2[words2[i]]++;
+        }
+
+        for(auto keyValue : map1){
+            if(map1[keyValue.first] == 1){
+                if((map2.find(keyValue.first) != map2.end()) && map2[keyValue.first] == 1){
+                    count++;
+                }
+            }
+        }
+
+        return count;
+
+    }
+    
 int main()
 {
 
