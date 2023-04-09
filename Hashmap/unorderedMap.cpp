@@ -50,6 +50,35 @@ void freqMap_pos(string &str){
     return;
 }
 
+//leetcode 771
+  int numJewelsInStones(string j, string s) {
+        unordered_map<char, int>map;
+        int ans = 0;
+        for(int i=0; i<j.length();i++){
+            map[j[i]] = 1;
+        }
+
+        for(int i=0;i<s.length();i++){
+            if(map.find(s[i]) != map.end()){
+                ans++;
+            }
+        }
+
+    return ans;
+    }
+
+    // leetcode 1832
+      bool checkIfPangram(string s) {
+        unordered_map<char, int>map;
+
+        for(int i=0;i<s.length();i++){
+            char ch = s[i];
+            map[ch]++;
+        }
+
+        return map.size() == 26;
+    }
+
 int main()
 {
 
