@@ -142,7 +142,104 @@ void freqMap_pos(string &str){
         return count;
 
     }
-    
+    // leetcode 001
+      vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int>map;
+        vector<int>ans;
+
+        for(int i=0; i<nums.size(); i++){
+            if(map.find(target - nums[i]) != map.end()){
+                 ans.push_back(i);
+                 ans.push_back(map[target - nums[i]]);
+                 return ans;
+            }
+            map[nums[i]] = i;
+        }
+
+        return ans;
+    }
+
+    // leetcode 1512
+        int numIdenticalPairs(vector<int>& nums) {
+        unordered_map<int, int>map;
+
+        int res = 0;
+
+        for(int ele: nums){
+            map[ele]++;
+        }
+
+        for(auto keyValue: map){
+            int count = keyValue.second;
+            res = res + (count * (count-1)/2);
+        }
+
+        return res;
+
+    }
+
+    // leetcode 2006
+      int countKDifference(vector<int>& nums, int k) {
+        unordered_map<int, int>map;
+
+        int count = 0;
+
+        for(int i=0;i<nums.size();i++){
+            map[nums[i]]++;
+            if(map.find(nums[i]+k) != map.end()){
+                count+= map[nums[i] + k];
+            }
+
+             if(map.find(nums[i]-k) != map.end()){
+                count+= map[nums[i] - k];
+            }
+        }
+        return count;
+    }
+
+    // leetcode 1684
+        int countConsistentStrings(string a, vector<string>& words) {
+        unordered_set<char>set;
+
+        for(int i=0;i<a.length();i++){
+            set.insert(a[i]);
+        }
+
+        int ans = 0;
+        for(int i=0;i<words.size();i++){
+            bool res = true;
+            string str = words[i];
+            for(int j=0; j<str.length();j++){
+                if(set.find(str[j]) == set.end()){
+                    res = false;
+                    break;
+                }
+            }
+            if(res){
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    // leetcode 1941
+     bool areOccurrencesEqual(string s) {
+        unordered_map<char, int>map;
+
+        for(int i=0;i<s.length();i++){
+            map[s[i]]++;
+        }
+
+        int required = map[s[0]];
+
+        for(auto keyValue: map){
+            if(keyValue.second != required){
+                return false;
+            }
+        }
+        return true;
+    }
+
 int main()
 {
 
