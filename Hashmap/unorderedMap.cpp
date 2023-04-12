@@ -240,6 +240,60 @@ void freqMap_pos(string &str){
         return true;
     }
 
+    // leetcode 128
+       int longestConsecutive(vector<int>& nums) {
+        unordered_set<int>set;
+
+        for(int ele: nums){
+            set.insert(ele);
+        }
+
+        int len = 0;
+        for(int ele : nums){
+            if(set.find(ele) == set.end()){
+                continue;
+            }
+            set.erase(ele);
+
+            int prev = ele-1;
+            int next = ele+1;
+
+            while(set.find(prev) != set.end()){
+                set.erase(prev);
+                prev--;
+            }
+
+            while(set.find(next) != set.end()){
+                set.erase(next);
+                next++;
+            }
+
+            len = max(len, next-prev-1);
+            
+
+        }
+        return len;
+
+    }
+
+    // leetcode 49
+     vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>>ans;
+
+        unordered_map<string, vector<string>>map;
+        for(string str: strs){
+            string key = str;
+            sort(key.begin(), key.end());
+            map[key].push_back(str);
+        }
+
+        for(auto keyValue: map){
+            ans.push_back(keyValue.second);
+        }
+        return ans;
+    }
+
+
 int main()
 {
 
