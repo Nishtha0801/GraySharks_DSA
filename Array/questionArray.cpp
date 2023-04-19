@@ -1,6 +1,7 @@
 #include<iostream>
 #include<algorithm>
 #include<vector>
+#include<unordered_map>
 
 using namespace std;
 
@@ -501,6 +502,85 @@ void segregatePositiveAndNegative(vector<int> &arr){
             }
         }
         return gMax;
+    }
+
+
+// https://practice.geeksforgeeks.org/problems/largest-subarray-of-0s-and-1s/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+     int maxLen(int arr[], int N)
+    {
+        // Your code here
+        
+        if(N == 0){
+            return 0;
+        }
+        
+        int len = 0;
+        unordered_map<int, int>map;
+        map[0] = -1;
+        
+        int sum = 0;
+        
+        for(int i=0;i<N;i++){
+            int val = arr[i];
+            if(val == 0){
+                val= -1;
+            }
+            sum+=val;
+            
+            if(map.find(sum) != map.end()){
+                len = max(len, i - map[sum]);
+            } else {
+                map[sum] = i;
+            }
+        }
+        return len;
+    }
+
+    // https://www.geeksforgeeks.org/count-subarrays-equal-number-1s-0s/
+    long long int countSubarrWithEqualZeroAndOne(int arr[], int N)
+    {
+        //Your code here
+        
+        if(N<=1){
+            return 0;
+        }
+        unordered_map<int, int>map;
+        int count = 0;
+        map[0] = 1;
+        
+        int sum = 0;
+        
+        for(int i=0; i<N;i++){
+            int val = arr[i];
+            if(val == 0){
+                val = -1;
+            }
+            sum+=val;
+            count+=map[sum];
+            map[sum]++;
+        }
+        return count;
+        
+    }
+
+    //leetcode 930
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int n = nums.size();
+        unordered_map<int, int>map;
+        int count = 0;
+        int sum = 0;
+
+        int i=0;
+        map[0] = 1;
+
+        while(i<n){
+            sum+=nums[i];
+            i++;
+        
+            count+=map[sum-goal];
+            map[sum]++;
+        }
+        return count;
     }
 
 
