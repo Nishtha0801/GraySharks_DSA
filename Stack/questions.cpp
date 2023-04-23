@@ -140,6 +140,90 @@ bool isValid(string s) {
 
     }
 
+    // leetcode 503
+     vector<int> nextGreaterElements(vector<int>& arr) {
+        stack<int>st;
+        st.push(-1);
+
+        int n= arr.size();
+        vector<int>ans(n, -1);
+        for(int i=0;i<2*n;i++){
+            while(st.top() != -1 && arr[st.top()] < arr[i%n]){
+                ans[st.top()] = arr[i%n];
+                st.pop();
+            }
+            if(i<n){
+                st.push(i);
+            }
+        }
+        return ans;
+    }
+
+    // leetcode 921
+      int minAddToMakeValid(string s) {
+        stack<int>st;
+        int n = s.length();
+        for(int i=0;i<n;i++){
+            if(st.size() != 0 && s[st.top()] == '(' && s[i] == ')'){
+                st.pop();
+            } else{
+                st.push(i);
+            }
+        }
+        return st.size();
+    }
+    //leetcode 32
+    
+   int longestValidParentheses(string s) {
+        stack<int>st;
+        st.push(-1);
+
+        int n = s.length();
+        int len = 0;
+
+        for(int i=0;i<n;i++){
+            if(st.top() != -1 && s[st.top()] == '(' && s[i] == ')'){
+                st.pop();
+
+                len = max(len, i-st.top());
+            }
+            else{
+                st.push(i);
+            }
+        }
+        return len;
+    }
+
+    // leetcode 1249
+      string minRemoveToMakeValid(string s) {
+        stack<int>st;
+        int n = s.length();
+
+        for(int i=0;i<n;i++){
+            if(s[i] == ')'){
+                if(st.size() != 0){
+                    st.pop();
+                } else {
+                    s[i] = '#';
+                }
+            } else if (s[i] == '('){
+                st.push(i);
+            }
+        }
+        while(st.size() != 0){
+            s[st.top()] = '#';
+            st.pop();
+        } 
+
+        string ans = "";
+        for(int i=0;i<n;i++){
+            if(s[i] != '#'){
+                ans+=s[i];
+            }
+        }
+        return ans;
+    }
+
 
 
 int main() {
