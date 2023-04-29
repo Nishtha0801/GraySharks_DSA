@@ -224,6 +224,111 @@ bool isValid(string s) {
         return ans;
     }
 
+    int largestRectangleArea(vector<int>& heights) {
+        stack<int>st;
+        int n = heights.size();
+        st.push(-1);
+
+        int area = 0;
+
+        for(int i=0;i<heights.size();i++){
+            while(st.top() != -1 && heights[st.top()] >= heights[i]){
+                int h = heights[st.top()];
+                st.pop();
+                int w = i-st.top()-1;
+                area = max(area, w*h);
+            }
+            st.push(i);
+        }
+
+        while(st.top() != -1){
+            int h = heights[st.top()];
+            st.pop();
+            int w = n-st.top()-1;
+            area = max(area, h*w);
+        }
+
+        return area;
+    }
+
+    string removeKdigits(string num, int k) {
+        stack<char>st;
+        for(int i=0;i<num.length();i++){
+            char digit = num[i];
+            while(st.size() != 0 && k>0 && st.top()>digit){
+                st.pop();
+                k--;
+            }
+            st.push(digit);
+        }
+        // k>0
+        while(st.size() != 0 && k>0){
+            st.pop();
+            k--;
+        }
+
+        string ans = "";
+        while(st.size() != 0){
+            ans+=st.top();
+            st.pop();
+        }
+
+        while(ans.size() != 0){
+            if(ans.back() != '0'){
+                break;
+            }
+            ans.pop_back();
+        }
+
+        reverse(ans.begin(), ans.end());
+
+        return ans.length() == 0? "0" : ans;
+    }
+
+// leetcode 225 ===================================
+//     class MyStack {
+// public:
+//     queue<int>mainQ;
+//     queue<int>helperQ;
+//     MyStack() {
+        
+//     }
+    
+//     void push(int x) {
+//         mainQ.push(x);
+//     }
+    
+//     int pop() {
+//         if(mainQ.empty()){
+//             return -1;
+//         }
+//         while(mainQ.size() != 1){
+//             helperQ.push(mainQ.front());
+//             mainQ.pop();
+//         }
+
+//         int rv = mainQ.front();
+//         mainQ.pop();
+
+//         while(!helperQ.empty()){
+//             mainQ.push(helperQ.front());
+//             helperQ.pop();
+//         }
+//         return rv;
+//     }
+    
+//     int top() {
+//         return mainQ.back();
+//     }
+    
+//     bool empty() {
+//         if(mainQ.empty()){
+//             return true;
+//         } 
+//         return false;
+//     }
+// };
+
 
 
 int main() {
