@@ -29,6 +29,20 @@ bool find(vector<int>&arr, int idx, int data){
     return find(arr, idx+1, data);
 }
 
+int lastIdx(vector<int>&arr, int idx, int data){
+    
+    if(idx == arr.size()){
+        return -1;
+    }
+    
+    int ans = lastIdx(arr, idx+1, data);
+    if(ans != -1){
+        return ans;
+    }
+    
+    return arr[idx]==data ? idx :-1;
+}
+
 int main() {
     // Write C++ code here
  vector<int>arr = {2,3,4,5,6,7,8};
