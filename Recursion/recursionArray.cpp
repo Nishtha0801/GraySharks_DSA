@@ -43,11 +43,82 @@ int lastIdx(vector<int>&arr, int idx, int data){
     return arr[idx]==data ? idx :-1;
 }
 
+int mazePath(int sr, int sc, int er, int ec, string ans){
+    
+    if(sr == er && sc == ec){
+        cout<<ans<<endl;
+        return 1;
+    }
+    int count = 0;
+    if(sc+1 <= ec){
+        count+=mazePath(sr, sc+1, er, ec, ans+"H");
+    }
+    if(sr+1 <= er){
+        count+=mazePath(sr+1, sc, er, ec, ans+"V");
+    }
+    if(sr+1<=er && sc+1<=ec){
+        count+=mazePath(sr+1, sc+1, er, ec, ans+"D");
+    }
+    return count;
+}
+
+int mazePathWithJumps(int sr, int sc, int er, int ec, string ans){
+    if(sr == er && sc == ec){
+        cout<<ans<<endl;
+        return 1;
+    }
+    
+    int count = 0;
+    for(int jump=1; sc+jump<=ec; jump++){
+         count+=mazePathWithJumps(sr, sc+jump, er, ec, ans+"H"+to_string(jump));
+    }
+    
+     for(int jump=1; sr+jump<=er; jump++){
+         count+=mazePathWithJumps(sr+jump, sc, er, ec, ans+"V"+to_string(jump));
+    }
+    
+     for(int jump=1; sr+jump<=er && sc+jump<=ec; jump++){
+         count+=mazePathWithJumps(sr+jump, sc+jump, er, ec, ans+"D"+to_string(jump));
+    }
+
+    return count;
+}
+
+void floodfill(vector<vector<int>>maze, int sr, int sc, string asf, 
+vector<vector<bool>>vis){
+    if(sr == maze.size()-1 && sc == maze[0].size()-1){
+        cout<<asf<<endl;
+        return;
+    }
+    
+    if(sr<0 || sc<0 || sr>=maze.size() || sc>=maze[0].size() || vis[sr][sc] == true){
+        return;
+    }
+    
+    vis[sr][sc] = true;
+    floodfill(maze, sr-1, sc, asf+"t", vis);
+    floodfill(maze, sr, sc-1, asf+"l", vis);
+    floodfill(maze, sr+1, sc, asf+"d", vis);
+    floodfill(maze, sr, sc+1, asf+"r", vis);
+    vis[sr][sc] = false;
+    
+}
+
+
 int main() {
     // Write C++ code here
  vector<int>arr = {2,3,4,5,6,7,8};
   display(arr, 0);
   cout<<maximum(arr,0)<<endl;
   cout<<find(arr, 0,4546);
+   cout<<mazePath(0,0,2,2,"");
+   cout<<mazePathWithJumps(0,0,2,2, "");
+   int n = 4;
+    int m = 4;
+    
+    vector<vector<int>>maze(n, vector<int>(m));
+   vector<vector<bool>>visited(n, vector<bool>(m));
+   
+   floodfill(maze, 0,0,"", visited);
     return 0;
 }
