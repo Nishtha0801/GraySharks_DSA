@@ -104,6 +104,34 @@ vector<vector<bool>>vis){
     
 }
 
+ int coinChangePermutationR(vector<int>coins, int tar, string ans){
+     if(tar == 0){
+         cout<<ans<<endl;
+         return 1;
+     }
+     int count = 0;
+      for(int i=0;i<coins.size();i++){
+          if(tar-coins[i] >= 0){
+              count+=coinChangePermutationR(coins, tar-coins[i], ans+to_string(coins[i]));
+          }
+      }
+      return count;
+  }
+
+  int coinChangeCombinationR(vector<int>coins, int idx, int tar, string ans){
+      if(tar == 0){
+          cout<<ans<<endl;
+          return 1;
+      }
+      int count = 0;
+      for(int i=idx;i<coins.size();i++){
+          if(tar - coins[i] >= 0){
+              count+=coinChangeCombinationR(coins, i, tar-coins[i], ans+to_string(coins[i]));
+          }
+      }
+      return count;
+  }
+
 
 int main() {
     // Write C++ code here
