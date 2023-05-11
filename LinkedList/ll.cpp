@@ -62,6 +62,70 @@ class linkedList {
         addLastNode(node);
     }
     
+    private:
+    Node *removeFirstNode(){
+        Node *node = this->head;
+        
+        if(this->eleCount == 1){
+            this->head= nullptr;
+            this->tail = nullptr;
+        } else {
+            this->head = this->head->next;
+            node->next = nullptr;
+        }
+        
+        this->eleCount--;
+        return node;
+    }
+    
+    public:
+    int removeFirst(){
+        if(this->eleCount == 0){
+            throw("nullPointer Exception:-1");
+        }
+        
+        Node *node = removeFirstNode();
+        int rv = node->data;
+        delete node;
+        return rv;
+        
+    }
+    
+    private:
+    Node *getFirstNode(){
+        return this->head;
+    }
+    
+    public:
+    int getFirst(){
+        if(this->eleCount == 0){
+            throw("null pointer exception");
+        }
+        Node *node = getFirstNode();
+        return node->data;
+    }
+    
+    private:
+    Node *getLastNode(){
+        return this->tail;
+    }
+    
+    public:
+    int getLast(){
+        if(this->eleCount == 0){
+            throw("null pointer exception");
+        }
+        Node *node = getLastNode();
+        return node->data;
+    }
+    
+
+    // getLastNode();
+    // addNodeAt(;)
+   // getNodeAt();
+   // removeLastNode();
+   // removeNodeAt();
+   
     
     
      
