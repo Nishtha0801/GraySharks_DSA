@@ -64,6 +64,22 @@ int power(int x, int n){
     return pn;
 }
 
+int calls(int n){ //n=5
+    if(n<=1){
+        cout<<"Base:"<<n<<endl;
+        return n+1;
+    }
+    
+    int count = 0;
+    cout<<"Pre:"<<n<<endl;
+    count+=calls(n-1);
+    cout<<"In"<<n<<endl;
+    count+=calls(n-2);
+    cout<<"Post"<<n<<endl;
+      
+     return count+3;
+}
+
 int main() {
     // Write C++ code here
  
