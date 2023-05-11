@@ -44,6 +44,24 @@ class linkedList {
         addFirstNode(node);
     }
     
+    private:
+    void addLastNode(Node *node){
+        if(this->head == nullptr){
+            this->head = node;
+            this->tail = node;
+        } else{
+            this->tail->next = node;
+            this->tail = node;
+        }
+        this->eleCount++;
+    }
+    
+    public:
+    void addLast(int val){
+        Node *node = new Node(val);
+        addLastNode(node);
+    }
+    
     
     
      
