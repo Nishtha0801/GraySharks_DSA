@@ -120,17 +120,12 @@ class linkedList {
     }
     
 
-    // getLastNode();
+
     // addNodeAt(;)
    // getNodeAt();
    // removeLastNode();
    // removeNodeAt();
    
-    
-    
-     
-    
-    
 };
 
 int main() {
