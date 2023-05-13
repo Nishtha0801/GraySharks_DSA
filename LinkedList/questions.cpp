@@ -87,7 +87,7 @@ public:
 
        mid->next = nullptr;
 
-       thead = reverseList(thead);
+       thead = reverse(thead);
        ListNode* c1 = head;
        ListNode* c2 = thead;
 
@@ -100,7 +100,7 @@ public:
            c2 = c2->next;
        }
 
-       thead = reverseList(thead);
+       thead = reverse(thead);
        mid->next = thead;
     }
 
@@ -109,3 +109,63 @@ public:
        return head;
     }
 };
+
+
+
+// leetcode 234 ===========================
+ ListNode* middleNode2( ListNode* head){
+        if(head == nullptr || head -> next == nullptr){
+            return head;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != nullptr && fast->next->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+     ListNode* reverse(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        while(curr != nullptr){
+            ListNode* forw = curr->next;
+
+            //linking
+            curr->next = prev;
+            prev = curr;
+            curr = forw;
+        }
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(head == nullptr || head->next == nullptr){
+           return true;
+       }
+       ListNode* mid = middleNode2(head);
+       ListNode* thead = mid->next;
+
+       mid->next = nullptr;
+
+
+       thead = reverse(thead);
+
+       ListNode* c1 = head;
+       ListNode* c2 = thead;
+
+        bool res = true;
+       while(c1!=nullptr && c2 != nullptr){
+           if(c1->val != c2->val){
+               res = false;
+               break;
+           }
+           c1 = c1->next;
+           c2 = c2->next;
+       }
+
+       thead = reverse(thead);
+       mid -> next = thead;
+
+       return res;
+
+    }
