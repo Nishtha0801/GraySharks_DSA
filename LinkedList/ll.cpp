@@ -7,16 +7,18 @@ class linkedList {
     class Node{
         public: 
             int data = 0;
-            Node *next = nullptr;
+            Node* next = nullptr;
             
             Node(int data){
                 this->data = data;
             }
     };
     
-    Node *head = nullptr;
-    Node *tail = nullptr;
+    Node* head = nullptr;
+    Node* tail = nullptr;
     int eleCount = 0; // size
+    
+    
     
     int size(){
         return this->eleCount;
@@ -26,8 +28,24 @@ class linkedList {
         return this->eleCount == 0;
     }
     
+    public:
+    string toString(){
+        Node* curr = this->head;
+        string ans = "";
+        ans+="[";
+        while(curr != nullptr){
+            ans+=to_string(curr->data);
+            if(curr->next != nullptr){
+                ans+=",";
+            }
+            curr = curr->next;
+        }
+        ans+="]";
+        return ans;
+    }
+    
     private:
-    void addFirstNode(Node *node){
+    void addFirstNode(Node* node){
         if(this->head == nullptr){
             this->head = node;
             this->tail = node;
@@ -45,7 +63,7 @@ class linkedList {
     }
     
     private:
-    void addLastNode(Node *node){
+    void addLastNode(Node* node){
         if(this->head == nullptr){
             this->head = node;
             this->tail = node;
@@ -58,7 +76,7 @@ class linkedList {
     
     public:
     void addLast(int val){
-        Node *node = new Node(val);
+        Node* node = new Node(val);
         addLastNode(node);
     }
     
@@ -84,7 +102,7 @@ class linkedList {
             throw("nullPointer Exception:-1");
         }
         
-        Node *node = removeFirstNode();
+        Node* node = removeFirstNode();
         int rv = node->data;
         delete node;
         return rv;
@@ -101,12 +119,12 @@ class linkedList {
         if(this->eleCount == 0){
             throw("null pointer exception");
         }
-        Node *node = getFirstNode();
+        Node* node = getFirstNode();
         return node->data;
     }
     
     private:
-    Node *getLastNode(){
+    Node* getLastNode(){
         return this->tail;
     }
     
@@ -115,7 +133,7 @@ class linkedList {
         if(this->eleCount == 0){
             throw("null pointer exception");
         }
-        Node *node = getLastNode();
+        Node* node = getLastNode();
         return node->data;
     }
     
@@ -167,18 +185,72 @@ class linkedList {
           return rv;
       }
       
-    // addNodeAt(); 
-
-
-   
+      private:
+      void addNodeAt(Node* node, int idx){
+          if(idx == 0){
+              addFirstNode(node);
+          }
+          else if( idx == this->eleCount){
+              addLastNode(node);
+          } else {
+              Node* prev = getNodeAt(idx-1);
+              Node* curr = prev->next;
+              
+              prev->next = node;
+              node->next = curr;
+               this->eleCount++;
+          }
+         
+      }
+      
+    // addNodeAt();
+    public: 
+    void addAt(int data, int idx){
+        if(idx<0 || idx>this->eleCount){
+            throw("Invalid location");
+        }
+        
+        Node* node = new Node(data);
+        addNodeAt(node, idx);
+    }
  
    // removeNodeAt();
+   private:
+   Node* removeNodeAt(int idx){
+       if(idx == 0){
+           return removeFirstNode();
+       } else if(idx == this->eleCount -1){
+           return removeLastNode();
+       } else {
+           Node* prev = getNodeAt(idx-1);
+           Node* curr = prev->next;
+           
+           prev->next = curr->next;
+           curr->next = nullptr;
+           this->eleCount--;
+           return curr;
+       }
+   }
    
+   public:
+   int removeAt(int idx){
+       if(idx<0 || idx>this->eleCount){
+           throw("Invalid location");
+       }
+       Node* node = removeNodeAt(idx);
+       int rv = node->data;
+       delete node;
+       return rv;
+   }
 };
 
 int main() {
-    // Write C++ code here
-    cout << "Hello world!";
+   linkedList ll;
+   for(int i=0;i<=10;i++){
+       ll.addLast(i*10);
+   }
+   
+   cout<<ll.toString()<<endl;
 
     return 0;
 }
