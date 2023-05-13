@@ -22,3 +22,18 @@ struct ListNode {
         }
         return slow;
     }
+
+    // leetcode 206
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        while(curr != nullptr){
+            ListNode* forw = curr->next;
+
+            //linking
+            curr->next = prev;
+            prev = curr;
+            curr = forw;
+        }
+        return prev;
+    }
