@@ -63,8 +63,8 @@ class linkedList {
     }
     
     private:
-    Node *removeFirstNode(){
-        Node *node = this->head;
+    Node* removeFirstNode(){
+        Node* node = this->head;
         
         if(this->eleCount == 1){
             this->head= nullptr;
@@ -92,7 +92,7 @@ class linkedList {
     }
     
     private:
-    Node *getFirstNode(){
+    Node* getFirstNode(){
         return this->head;
     }
     
@@ -119,11 +119,59 @@ class linkedList {
         return node->data;
     }
     
+    private:
+    Node* getNodeAt(int idx){
+        Node* curr = this->head;
+        while(idx-- > 0){
+            curr = curr->next;
+        }
+        return curr;
+    }
+    
+    public:
+    int getAt(int idx){
+        if(idx<0 || idx>= this->eleCount){
+            throw("Invalid location");
+        }
+        
+        Node* node = getNodeAt(idx);
+        return node->data;
+    }
+    
+      // removeLastNode();
+      
+      private:
+      Node* removeLastNode(){
+          Node* node = this->tail;
+          if(this->eleCount == 1){
+              this->head = nullptr;
+              this->tail = nullptr;
+          } else {
+              Node* prev = getNodeAt(this->eleCount - 2);
+              
+              this->tail = prev;
+              prev->next = nullptr;
+          }
+          this->eleCount--;
+          return node;
+      }
+      
+      public:
+      int removeLast(){
+          if(this->eleCount == 0){
+              throw("nullpointer exception");
+          }
+          Node* node = removeLastNode();
+          int rv = node->data;
+          delete node;
+          return rv;
+      }
+      
+    // addNodeAt(); 
 
 
-    // addNodeAt(;)
-   // getNodeAt();
-   // removeLastNode();
+   
+ 
    // removeNodeAt();
    
 };
