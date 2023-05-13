@@ -250,6 +250,10 @@ int main() {
        ll.addLast(i*10);
    }
    
+   for(int i=10;i>=0;i--){
+       ll.addFirst(i*10);
+   }
+   
    cout<<ll.toString()<<endl;
 
     return 0;
