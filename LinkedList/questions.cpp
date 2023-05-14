@@ -9,6 +9,17 @@ struct ListNode {
       ListNode(int x, ListNode *next) : val(x), next(next) {}
   };
 
+  struct Node
+{
+    int data;
+    struct Node* next;
+    
+    Node(int x){
+        data = x;
+        next = NULL;
+    }
+};
+
   //leetcode 876
   ListNode* middleNode(ListNode* head) {
         if(head == nullptr || head -> next == nullptr){
@@ -294,4 +305,97 @@ public:
         ListNode* l2 = sortList(nhead);
 
         return mergeTwoLists(l1, l2);
+    }
+
+    // leetcode 61 ==========================================
+     ListNode* rotateRight(ListNode* head, int k) {
+        if(head == nullptr || head->next == nullptr || k==0){
+            return head;
+        }
+
+        int len = 0;
+        ListNode* curr = head;
+        while(curr != nullptr){
+            curr = curr->next;
+            len++;
+        }
+
+        k = k%len;
+
+        if(k == 0){
+            return head;
+        }
+
+        ListNode* c1 =head;
+        ListNode* c2 = head;
+        while(k-- > 0){
+            c2 = c2->next;
+        }
+
+        while(c2->next != nullptr){
+            c1 = c1->next;
+            c2 = c2->next;
+        }
+
+        c2->next = head;
+        head = c1->next;
+        c1->next = nullptr;
+
+
+        return head;
+
+
+    }
+
+    https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
+
+      Node* divide(int N, Node *head){
+        // code here
+        if(head == nullptr || head->next == nullptr){
+            return head;
+        }
+        Node* even = new Node(-1);
+        Node* ep = even;
+        
+        Node* odd = new Node(-1);
+        Node* op = odd;
+        
+        Node* curr = head;
+        while(curr != nullptr){
+            if(curr->data % 2 == 0){
+                ep->next = curr;
+                ep = ep->next;
+            } else {
+                op->next = curr;
+                op = op->next;
+            }
+            curr = curr->next;
+        }
+        op->next = nullptr;
+        ep->next = odd->next;
+
+        return even->next;
+    }
+
+
+    //leetcode 328 ====================
+        ListNode* oddEvenList(ListNode* head) {
+        if(head == nullptr){
+            return head;
+        }
+        ListNode* odd = head;
+        ListNode* even = head->next;
+
+        ListNode* evenHead = even;
+
+        while(even != nullptr && even->next != nullptr){
+            odd->next = even->next;
+            odd = odd->next;
+
+            even->next = odd->next;
+            even = even->next;
+        }
+        odd->next = evenHead;
+
+        return head;
     }
