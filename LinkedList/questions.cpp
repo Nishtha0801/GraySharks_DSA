@@ -347,7 +347,7 @@ public:
 
     }
 
-    https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
+   // https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
 
       Node* divide(int N, Node *head){
         // code here
@@ -398,4 +398,84 @@ public:
         odd->next = evenHead;
 
         return head;
+    }
+
+    // leetcode 237 =========================
+      void deleteNode(ListNode* node) {
+        if(node == nullptr){
+            return;
+        }
+
+        node->val = node->next->val;
+        node->next = node->next->next;
+    }
+
+    // leetcode 141 ================
+    bool hasCycle(ListNode *head) {
+        if(head == nullptr || head->next == nullptr){
+            return false;
+        }
+
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast!=nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if(slow == fast){
+                break;
+            }
+        }
+        return slow == fast;
+    }
+
+    // leetcode 160========================
+      ListNode* detectCycle(ListNode* head){
+        if(head == nullptr || head->next == nullptr){
+            return nullptr;
+        }
+
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if(slow == fast){
+                break;
+            }
+        }
+
+        if(slow != fast){
+            return nullptr;
+        }
+
+        slow = head;
+        while(slow != fast){
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+        return slow;
+
+    }
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA == nullptr || headB == nullptr){
+            return nullptr;
+        }
+
+        ListNode* prev = headA;
+        ListNode* curr = headA;
+
+        while(curr != nullptr){
+            prev = curr;
+            curr = curr->next;
+        }
+
+        prev->next = headB;
+        ListNode* ans = detectCycle(headA);
+        prev->next = nullptr;
+        return ans;
     }
