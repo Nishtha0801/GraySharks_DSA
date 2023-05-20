@@ -76,6 +76,28 @@ int height_nodes(Node *node){
     return max(lheight, rHeight)+1;
 }
 
+void preOrder(Node *node){
+    if(node == nullptr){
+        return;
+    }
+    
+    cout<<node->data<<" ";
+    preOrder(node->left);
+    preOrder(node->right);
+}
+
+void inOrder(Node *node){
+    if(node == nullptr){
+        return;
+    }
+    
+    inOrder(node->left);
+    cout<<node->data<<" ";
+    inOrder(node->right);
+}
+
+//postorder =======================
+
 int main() {
     // Write C++ code here
    vector<int>arr = {10,20,40,80, -1, -1, 90, 100, -1, -1, -1, 50, -1, -1, 30, 60, 110, 120, -1, -1, 140, -1, -1, -1, 70, -1, -1};
@@ -86,6 +108,8 @@ int main() {
    cout<<size(root)<<endl;
    cout<<height(root)<<endl;
    cout<<height_nodes(root)<<endl;
-
+    preOrder(root);
+    cout<<endl;
+    inOrder(root);
     return 0;
 }
