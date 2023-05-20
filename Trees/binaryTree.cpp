@@ -107,6 +107,19 @@ void postOrder(Node *node){
     cout<<node->data<<" ";
 }
 
+bool find(Node *node, int data){
+    if(node == nullptr){
+        return false;
+    }
+    
+    if(node->data == data){
+        return true;
+    }
+    
+    return find(node->left, data) || find(node->right, data);
+}
+
+
 int main() {
     // Write C++ code here
    vector<int>arr = {10,20,40,80, -1, -1, 90, 100, -1, -1, -1, 50, -1, -1, 30, 60, 110, 120, -1, -1, 140, -1, -1, -1, 70, -1, -1};
@@ -122,5 +135,7 @@ int main() {
     inOrder(root);
     cout<<endl;
     postOrder(root);
+    cout<<endl;
+    cout<<find(root, 210)<<endl;
     return 0;
 }
