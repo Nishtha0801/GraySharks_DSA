@@ -45,7 +45,16 @@ void display(Node *node){
     display(node->right);
 }
 
-
+// find the size of the tree ================
+int size(Node *node){
+    if(node == nullptr){
+        return 0;
+    }
+    int countleft = size(node->left);
+    int countright = size(node->right);
+    return  countleft + countright + 1;
+    
+}
 
 int main() {
     // Write C++ code here
@@ -53,6 +62,8 @@ int main() {
    
    Node *root = constructTree(arr);
    display(root);
+   
+   cout<<size(root);
 
     return 0;
 }
