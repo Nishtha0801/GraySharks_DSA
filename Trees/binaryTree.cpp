@@ -97,6 +97,15 @@ void inOrder(Node *node){
 }
 
 //postorder =======================
+void postOrder(Node *node){
+    if(node == nullptr){
+        return;
+    }
+    
+    postOrder(node->left);
+    postOrder(node->right);
+    cout<<node->data<<" ";
+}
 
 int main() {
     // Write C++ code here
@@ -111,5 +120,7 @@ int main() {
     preOrder(root);
     cout<<endl;
     inOrder(root);
+    cout<<endl;
+    postOrder(root);
     return 0;
 }
