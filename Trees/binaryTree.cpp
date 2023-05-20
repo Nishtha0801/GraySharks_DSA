@@ -56,6 +56,26 @@ int size(Node *node){
     
 }
 
+int height(Node *node){
+    if(node == nullptr){
+        return -1;
+    }
+    int lheight = height(node->left);
+    int rHeight = height(node->right);
+    
+    return max(lheight, rHeight)+1;
+}
+
+int height_nodes(Node *node){
+    if(node == nullptr){
+        return 0;
+    }
+    int lheight = height_nodes(node->left);
+    int rHeight = height_nodes(node->right);
+    
+    return max(lheight, rHeight)+1;
+}
+
 int main() {
     // Write C++ code here
    vector<int>arr = {10,20,40,80, -1, -1, 90, 100, -1, -1, -1, 50, -1, -1, 30, 60, 110, 120, -1, -1, 140, -1, -1, -1, 70, -1, -1};
@@ -63,7 +83,9 @@ int main() {
    Node *root = constructTree(arr);
    display(root);
    
-   cout<<size(root);
+   cout<<size(root)<<endl;
+   cout<<height(root)<<endl;
+   cout<<height_nodes(root)<<endl;
 
     return 0;
 }
