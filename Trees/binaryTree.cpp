@@ -119,6 +119,71 @@ bool find(Node *node, int data){
     return find(node->left, data) || find(node->right, data);
 }
 
+bool nodeToRootPath(Node *node, int data, vector<Node*>&ans){
+    if(node == nullptr){
+        return false;
+    }
+    
+    if(node->data == data){
+        ans.push_back(node);
+        return true;
+    }
+    
+    bool res = nodeToRootPath(node->left, data, ans) || nodeToRootPath(node->right, data, ans);
+    
+    if(res){
+        ans.push_back(node);
+    }
+    
+    return res;
+}
+
+vector<Node*> nodeToRootPathTwo(Node *node, int data){
+    if(node == nullptr){
+        return {};
+    }
+    
+    if(node->data == data){
+        vector<Node*>base;
+        base.push_back(node);
+        return base;
+    }
+    
+    vector<Node*> left = nodeToRootPathTwo(node->left, data);
+    if(left.size() != 0){
+        left.push_back(node);
+        return left;
+    }
+    
+    vector<Node*> right = nodeToRootPathTwo(node->right, data);
+    if(right.size() != 0){
+        right.push_back(node);
+        return right;
+    }
+    
+    return {};
+}
+
+
+// use backtrackingg ==============
+bool rootToNodePath(Node* node, int data, vector<Node*>&ans){
+    if(node == nullptr){
+        return false;
+    }
+    if(node->data == data){
+        ans.push_back(node);
+        return true;
+    }
+    
+    ans.push_back(node);
+    bool res = rootToNodePath(node->left, data, ans) || rootToNodePath(node->right, data, ans);
+    
+    if(!res){
+        ans.pop_back();
+    }
+    return res;
+}
+
 
 int main() {
     // Write C++ code here
@@ -127,15 +192,31 @@ int main() {
    Node *root = constructTree(arr);
    display(root);
    
-   cout<<size(root)<<endl;
-   cout<<height(root)<<endl;
-   cout<<height_nodes(root)<<endl;
-    preOrder(root);
-    cout<<endl;
-    inOrder(root);
-    cout<<endl;
-    postOrder(root);
-    cout<<endl;
-    cout<<find(root, 210)<<endl;
+//   cout<<size(root)<<endl;
+//   cout<<height(root)<<endl;
+//   cout<<height_nodes(root)<<endl;
+//     preOrder(root);
+//     cout<<endl;
+//     inOrder(root);
+//     cout<<endl;
+//     postOrder(root);
+//     cout<<endl;
+//     cout<<find(root, 210)<<endl;
+    // vector<Node*>ans;
+    // cout<<nodeToRootPath(root, 90, ans)<<endl;
+    // for(Node* node : ans){
+    //     cout<<node->data<<" ";
+    // }
+    // cout<<endl;
+    // vector<Node*>res = nodeToRootPathTwo(root, 90);
+    //  for(Node* node : res){
+    //     cout<<node->data<<" ";
+    // }
+    vector<Node*>ans;
+    cout<<rootToNodePath(root, 90, ans)<<endl;
+     for(Node* node : ans){
+        cout<<node->data<<" ";
+    }
+    
     return 0;
 }
