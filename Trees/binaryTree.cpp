@@ -1,6 +1,7 @@
 // Online C++ compiler to run C++ program online
 #include <iostream>
 #include<vector>
+#include<queue>
 using namespace std;
 
 class Node{
@@ -184,6 +185,78 @@ bool rootToNodePath(Node* node, int data, vector<Node*>&ans){
     return res;
 }
 
+void BFS_01(Node* node){
+    queue<Node*>que;
+    
+    que.push(node);
+    while(que.size() != 0){
+        Node* removedNode = que.front();
+        que.pop();
+        cout<<removedNode->data<< " ";
+        
+        if(removedNode->left != nullptr){
+            que.push(removedNode->left);
+        }
+        
+        if(removedNode->right != nullptr){
+            que.push(removedNode->right);
+        }
+    }
+}
+
+void BFS_02(Node* node){
+    queue<Node*>que;
+    
+    que.push(node);
+    int level = 0;
+    while(que.size() != 0){
+        int size = que.size();
+        cout<<"Level:"<<level<<"->";
+        while(size-- > 0){
+            Node* removedNode = que.front();
+            que.pop();
+            cout<<removedNode->data<< " ";
+        
+            if(removedNode->left != nullptr){
+                que.push(removedNode->left);
+            }
+            
+            if(removedNode->right != nullptr){
+                que.push(removedNode->right);
+            }
+        }
+        cout<<endl;
+        level++;
+    }
+}
+
+vector<int> leftView(Node* node){
+    queue<Node*>que;
+    que.push(node);
+    vector<int>ans;
+    
+    while(que.size() != 0){
+        int size = que.size();
+        ans.push_back(que.front()->data);
+        
+        while(size -- > 0){
+            Node* removedNode = que.front();
+            que.pop();
+          
+        
+            if(removedNode->left != nullptr){
+                que.push(removedNode->left);
+            }
+            
+            if(removedNode->right != nullptr){
+                que.push(removedNode->right);
+            }
+        }
+    }
+    return ans;
+}
+
+// right view ==================
 
 int main() {
     // Write C++ code here
@@ -192,6 +265,13 @@ int main() {
    Node *root = constructTree(arr);
    display(root);
    
+    BFS_01(root);
+    cout<<endl;
+    BFS_02(root);
+    vector<int>ans = leftView(root);
+    for(int ele : ans){
+        cout<<ele<<" ";
+    }
 //   cout<<size(root)<<endl;
 //   cout<<height(root)<<endl;
 //   cout<<height_nodes(root)<<endl;
@@ -212,11 +292,12 @@ int main() {
     //  for(Node* node : res){
     //     cout<<node->data<<" ";
     // }
-    vector<Node*>ans;
-    cout<<rootToNodePath(root, 90, ans)<<endl;
-     for(Node* node : ans){
-        cout<<node->data<<" ";
-    }
+    // vector<Node*>ans;
+    // cout<<rootToNodePath(root, 90, ans)<<endl;
+    //  for(Node* node : ans){
+    //     cout<<node->data<<" ";
+    // }
+   
     
     return 0;
 }
