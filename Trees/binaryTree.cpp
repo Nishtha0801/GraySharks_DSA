@@ -257,6 +257,33 @@ vector<int> leftView(Node* node){
 }
 
 // right view ==================
+vector<int> rightView(Node* node){
+    queue<Node*>que;
+    que.push(node);
+    vector<int>ans;
+    
+    while(que.size() != 0){
+        int size = que.size();
+        int prev = -1;
+        while(size -- > 0){
+            Node* removedNode = que.front();
+            que.pop();
+        
+            if(removedNode->left != nullptr){
+                que.push(removedNode->left);
+            }
+            
+            if(removedNode->right != nullptr){
+                que.push(removedNode->right);
+            }
+            
+             prev = removedNode->data;
+        }
+        ans.push_back(prev);
+    }
+    return ans;
+}
+
 
 int main() {
     // Write C++ code here
@@ -268,7 +295,11 @@ int main() {
     BFS_01(root);
     cout<<endl;
     BFS_02(root);
-    vector<int>ans = leftView(root);
+    // vector<int>ans = leftView(root);
+    // for(int ele : ans){
+    //     cout<<ele<<" ";
+    // }
+    vector<int>ans = rightView(root);
     for(int ele : ans){
         cout<<ele<<" ";
     }
