@@ -284,6 +284,17 @@ vector<int> rightView(Node* node){
     return ans;
 }
 
+void width(Node* node, int level, vector<int>&maxMin){
+    if(node == nullptr){
+        return;
+    }
+    
+    maxMin[0] = max(maxMin[0], level);
+    maxMin[1] = min(maxMin[1], level);
+     
+    width(node->left, level-1, maxMin);
+    width(node->right, level+1, maxMin);
+}
 
 int main() {
     // Write C++ code here
@@ -295,6 +306,11 @@ int main() {
     BFS_01(root);
     cout<<endl;
     BFS_02(root);
+    cout<<endl;
+    vector<int>maxMin(2, 0);
+    width(root, 0, maxMin);
+    
+    cout<<"width is:"<<maxMin[0] - maxMin[1]<<endl;
     // vector<int>ans = leftView(root);
     // for(int ele : ans){
     //     cout<<ele<<" ";
