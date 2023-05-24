@@ -2,6 +2,7 @@
 #include <iostream>
 #include<vector>
 #include<queue>
+#include<utility>
 using namespace std;
 
 class Node{
@@ -296,6 +297,39 @@ void width(Node* node, int level, vector<int>&maxMin){
     width(node->right, level+1, maxMin);
 }
 
+vector<vector<int>> verticalOrder(Node* node){
+    vector<int>maxMin(2,0);
+    width(node, 0, maxMin);
+    
+    int n = maxMin[0] - maxMin[1] + 1;
+    
+    vector<vector<int>>ans(n);
+    
+    queue<pair<Node*, int>>que;
+    
+    que.push({node, -maxMin[1]});
+    
+    while(que.size() != 0){
+        int size = que.size();
+        while(size-- > 0){
+            pair<Node*, int> removedPair = que.front();
+            que.pop();
+            // a/2
+            ans[removedPair.second].push_back(removedPair.first->data);
+            
+            if(removedPair.first->left != nullptr){
+                que.push({removedPair.first->left, removedPair.second - 1});
+            }
+            
+            if(removedPair.first->right != nullptr){
+                que.push({removedPair.first->right, removedPair.second + 1 });
+            }
+            
+        }
+    }
+    return ans;
+}
+
 int main() {
     // Write C++ code here
    vector<int>arr = {10,20,40,80, -1, -1, 90, 100, -1, -1, -1, 50, -1, -1, 30, 60, 110, 120, -1, -1, 140, -1, -1, -1, 70, -1, -1};
@@ -303,22 +337,32 @@ int main() {
    Node *root = constructTree(arr);
    display(root);
    
-    BFS_01(root);
-    cout<<endl;
-    BFS_02(root);
-    cout<<endl;
-    vector<int>maxMin(2, 0);
-    width(root, 0, maxMin);
+    // BFS_01(root);
+    // cout<<endl;
+    // BFS_02(root);
+    // cout<<endl;
+    // vector<int>maxMin(2, 0);
+    // width(root, 0, maxMin);
     
-    cout<<"width is:"<<maxMin[0] - maxMin[1]<<endl;
+    // cout<<"width is:"<<maxMin[0] - maxMin[1]<<endl;
+    cout<< "Vertical Order traversal is:"<< endl;
+    
+    vector<vector<int>> ans = verticalOrder(root);
+    for(vector<int> v : ans){
+        for(int ele : v){
+            cout<<ele<<" ";
+        }
+        cout<<endl;
+    }
+    
     // vector<int>ans = leftView(root);
     // for(int ele : ans){
     //     cout<<ele<<" ";
     // }
-    vector<int>ans = rightView(root);
-    for(int ele : ans){
-        cout<<ele<<" ";
-    }
+    // vector<int>ans = rightView(root);
+    // for(int ele : ans){
+    //     cout<<ele<<" ";
+    // }
 //   cout<<size(root)<<endl;
 //   cout<<height(root)<<endl;
 //   cout<<height_nodes(root)<<endl;
