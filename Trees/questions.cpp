@@ -77,3 +77,27 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         
         return root;
       }
+
+      // leetcode 98
+        TreeNode* prev = nullptr;
+    bool isValidBST(TreeNode* root) {
+        if(root == nullptr){
+            return true;
+        }
+
+        if(!isValidBST(root->left)){
+            return false;
+        }
+
+        // kuchh kaam krenge
+        if(prev != nullptr && prev->val >= root->val){
+            return false;
+        }
+        prev = root;
+
+        if(!isValidBST(root->right)){
+            return false;
+        }
+
+        return true;
+    }

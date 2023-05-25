@@ -45,6 +45,39 @@ class Node{
         }
         
         // return the maximum node (data)
+        int maximum(Node* node){
+            Node* curr = node;
+            
+            while(curr->right != nullptr){
+                curr = curr->right;
+            }
+            return curr->data;
+        }
+        
+        // minimum
+        int minimum(Node* node){
+            Node* curr = node;
+            
+            while(curr->left != nullptr){
+                curr = curr->left;
+            }
+            return curr->data;
+        }
+        
+        // find(node, data)
+        bool find(Node* node, int data){
+            Node* curr = node;
+            while(curr != nullptr){
+                if(curr->data == data){
+                    return true;
+                } else if(curr->data < data){
+                    curr = curr->right;
+                } else{
+                    curr = curr->left;
+                }
+            }
+            return false;
+        }
 
 
 int main() {
