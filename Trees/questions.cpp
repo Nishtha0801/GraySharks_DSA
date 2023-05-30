@@ -101,3 +101,180 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
         return true;
     }
+
+
+
+    // leetcode 701 =========================================
+      TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if(root == nullptr){
+            return new TreeNode(val);
+        }
+
+        if(val<root->val){
+            root->left = insertIntoBST(root->left, val);
+        } else{
+            root->right = insertIntoBST(root->right, val);
+        }
+
+        return root;
+    }
+
+    // leetcode 450
+      int maxVal(TreeNode* node){
+        while(node->right != nullptr){
+            node = node->right;
+        }
+        return node->val;
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int val) {
+        if(root == nullptr){
+            return nullptr;
+        }
+
+        if(val < root->val){
+            root->left = deleteNode(root->left, val);
+        }
+
+        else if(val > root->val){
+            root->right = deleteNode(root->right, val);
+        }
+
+        else{ 
+            // different cases
+            if(root->left == nullptr || root->right == nullptr){
+                TreeNode* node = root->left != nullptr ? root->left : root->right;
+                delete root;
+                return node; 
+            }
+            // 4th case =========================
+            int mVal = maxVal(root->left);
+            root->val = mVal;
+            root->left = deleteNode(root->left, mVal);
+
+
+        }
+
+        return root;
+    }
+
+    // leetcode 235 ========================================
+        TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        TreeNode* curr = root;
+        while(curr != nullptr){
+            if(curr->val < p->val && curr->val < q->val){
+                curr = curr->right;   
+            }
+            else if(curr->val > p->val && curr->val > q->val){
+                curr = curr->left;
+            }
+             else {
+                 break;
+             }
+        }
+        return curr;
+    }
+
+    //leetcode 105 =============================================
+     TreeNode* buildTree(vector<int>& preorder, int psi, int pei, vector<int>& inorder, int isi, int iei) {
+        if(psi>pei){
+            return nullptr;
+        }
+
+        TreeNode* node = new TreeNode(preorder[psi]);
+
+        int idx = isi;
+        while(inorder[idx] != preorder[psi]){
+            idx++;
+        }
+
+        int count = idx - isi; // count of nodes in left subtree!
+
+        node->left = buildTree(preorder, psi+1, psi+count, inorder, isi, idx-1);
+        node->right = buildTree(preorder, psi+count+1, pei, inorder, idx+1, iei);
+
+        return node;
+
+    }
+
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(preorder.size() == 0){
+            return nullptr;
+        }
+
+        int n = preorder.size();
+        return buildTree(preorder, 0, n-1, inorder, 0, n-1);
+    }
+
+    // leetcode 106 ===================================
+
+     TreeNode* buildTree(vector<int>& postorder, int psi, int pei, vector<int>& inorder, int isi, int iei) {
+         if(psi>pei){
+             return nullptr;
+         }
+
+          TreeNode* node = new TreeNode(postorder[pei]);
+
+        int idx = isi;
+        while(inorder[idx] != postorder[pei]){
+            idx++;
+        }
+
+        int count = idx - isi;
+
+        node->left = buildTree(postorder, psi, psi+count-1, inorder, isi, idx-1);
+        node->right = buildTree(postorder, psi+count, pei-1, inorder, idx+1, iei);
+
+        return node;
+     }
+
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+          if(postorder.size() == 0){
+            return nullptr;
+        }
+
+        int n = postorder.size();
+        return buildTree(postorder, 0, n-1, inorder, 0, n-1);
+    }
+
+    // leetcode 1008 ==============================
+      int idx = 0;
+    TreeNode* buildTree(vector<int>&arr, int lrange, int rrange){
+        if(idx>=arr.size() || arr[idx] < lrange || arr[idx] > rrange){
+            return nullptr;
+        }
+
+        int data = arr[idx++];
+        TreeNode* node = new TreeNode(data);
+
+        node->left = buildTree(arr, lrange, data);
+        node->right = buildTree(arr, data, rrange);
+
+        return node;
+
+    }
+
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        return buildTree(preorder, -(int)1e9, (int)1e9);
+    }
+
+    // leetcode 230 =============
+    void addAllLeft(TreeNode* node, stack<TreeNode*>&st){
+        while(node!=nullptr){
+            st.push(node);
+            node = node->left;
+        }
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode*>st;
+        addAllLeft(root, st);
+
+        while(--k > 0){
+            TreeNode* rn = st.top();
+            st.pop();
+
+            addAllLeft(rn->right, st);
+        }
+        return st.top()->val;
+    }
