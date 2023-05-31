@@ -51,6 +51,19 @@ void display(Node* node){
 //size =========
 //find================
 
+bool find(Node* node, int data){
+    if(node->data == data){
+        return true;
+    }
+    
+    for(Node* child: node->childs){
+        if(find(child, data)){
+            return true;
+        }
+    }
+    return false;
+}
+
 int main() {
     // Write C++ code here
   vector<int> arr = {10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1, -1};
