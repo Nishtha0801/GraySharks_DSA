@@ -85,7 +85,12 @@ private:
         
         return rEle;
     }
-    // top, remove, isEmpty ===========
+    
+    void push(int val){
+        this->arr.push_back(val);
+        int n = size();
+        upheapify(n-1);
+    }
     
     private:
     void downHeapify(int pi)
@@ -94,7 +99,7 @@ private:
         int lci = 2 * pi + 1;
         int rci = 2 * pi + 2;
 
-        if (lci < this->arr.size() && compareTo(this->arr, isMaxHeap, lci, maxIdx)){
+        if (lci < this->arr.size() && compareTo(this->arr, isMaxHeap, lci, maxIdx)){ //lci > maxidx
              maxIdx = lci;
         }
            
@@ -110,6 +115,17 @@ private:
             downHeapify(maxIdx);
         }
     }
+    
+    void upheapify(int ci){
+        //O(logn)
+        int pi = (ci-1)/2;
+        
+        if(pi>=0 && compareTo(this->arr, isMaxHeap, ci, pi)){
+            // ci > pi
+            swap(this->arr[ci], this->arr[pi]);
+            upheapify(pi);
+        }
+    }
 };
 
 int main() {
@@ -118,6 +134,10 @@ int main() {
     cout << maxHeap.size() << endl;
     cout << maxHeap.isEmpty() << endl;
     cout << maxHeap.top() << endl;
+    cout<<maxHeap.remove()<<endl;
+    
+    maxHeap.push(15);
+    
     
     while(maxHeap.size() != 0){
         cout<<maxHeap.remove()<<" ";
