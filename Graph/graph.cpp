@@ -102,6 +102,10 @@ int allPaths(int src, int dest, vector<bool>&vis, string psf, int wsf){
     return count;
 }
 
+
+//minimumWeight and maximumWeight vale path btane h?
+
+
 void constructGraph()
 {
     addEdge(0, 1, 10);
