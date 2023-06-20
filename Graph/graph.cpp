@@ -105,6 +105,54 @@ int allPaths(int src, int dest, vector<bool>&vis, string psf, int wsf){
 
 //minimumWeight and maximumWeight vale path btane h?
 
+pair<string, int> maxWeightPath(int src, int dest, vector<bool>&vis){
+    if(src == dest){
+        return {to_string(src)+ " ", 0};
+    }
+    
+    vis[src] = true;
+    
+    pair<string, int>myAns = {"", -1};
+    
+    for(Edge e: graph[src]){
+        if(!vis[e.v]){
+            pair<string, int>recAns = maxWeightPath(e.v, dest, vis);
+            
+            if(recAns.second != -1 && recAns.second + e.w > myAns.second){
+                myAns.second = recAns.second + e.w;
+                myAns.first = to_string(src) + " " + recAns.first;
+            }
+        }
+    }
+    vis[src] = false;
+    return myAns;
+}
+
+int hamintonianPath(int src, int osrc, vector<bool>&vis, int edgeCount, string psf){
+    
+    if(edgeCount == N-1){
+        psf+=to_string(src);
+        int idx = searchVtx(src, osrc);
+        if(idx!=-1){
+            cout<<"Cycle:"<<psf<<endl;
+        } else {
+            cout<<"Path: "<<psf<<endl;
+        }
+        
+        return 1;
+    }
+    
+    vis[src] = true;
+    int count = 0;
+    for(Edge e : graph[src]){
+        if(!vis[e.v]){
+            count+=hamintonianPath(e.v, osrc, vis,edgeCount+1, psf+to_string(src) + " ");
+        }
+    }
+    vis[src] = false;
+    return count;
+}
+
 
 void constructGraph()
 {
@@ -120,18 +168,28 @@ void constructGraph()
     display();
 }
 
+
+
 int main()
 {
     constructGraph();
     vector<bool>vis(N,false);
     // cout<<hasPath(0,6,vis)<<endl;
-    cout<<allPaths(0,6,vis,"",0);
+   // cout<<allPaths(0,6,vis,"",0);
     // removeEdge(3,4);
     // cout<<endl;
     // display();
     // removeVtx(3);
     // cout<<endl;
     // display();
+    
+    // pair<string, int> ans = maxWeightPath(0, 6, vis);
+    
+    // cout<<ans.first<<"@"<<ans.second<<endl;
+    
+    cout<<hamintonianPath(0, 0, vis, 0, "")<<endl;
+    
+    
     
     
     return 0;
