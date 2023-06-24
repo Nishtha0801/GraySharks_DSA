@@ -236,14 +236,38 @@ void BFS_02(int src, int dest, vector<bool>&vis){
 
 
 //automatically cycle handle ho jaegi
-void BFS_03(){}
+void BFS_03(int src, vector<bool>&vis, vector<int>&dis){ //size wala method
+   queue<int>que;
+   que.push(src);
+   
+   vis[src] = true;
+   
+   int level = 0;
 
-
+   
+   while(que.size() != 0){
+       int size = que.size();
+       while(size-- > 0){
+           int vtx = que.front();
+           que.pop();
+           dis[vtx] = level;
+           
+           for(Edge e: graph[vtx]){
+               if(!vis[e.v]){
+                   vis[e.v] = true;
+                   que.push(e.v);
+               }
+           }
+       }
+       level++;
+   }
+}
 
 int main()
 {
     constructGraph();
     vector<bool>vis(N,false);
+     vector<int>dis(N,0);
     // cout<<hasPath(0,6,vis)<<endl;
    // cout<<allPaths(0,6,vis,"",0);
     // removeEdge(3,4);
@@ -260,7 +284,13 @@ int main()
     // cout<<hamintonianPath(0, 0, vis, 0, "")<<endl;
     
     // BFS_01(0, vis);
-    BFS_02(0, 6, vis);
+    // BFS_02(0, 6, vis);
+    
+    BFS_03(0, vis, dis);
+    
+    for(int ele : dis){
+        cout<<ele<<" ";
+    }
     
     
     
