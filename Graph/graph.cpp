@@ -1,6 +1,7 @@
 // Online C++ compiler to run C++ program online
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -135,6 +136,7 @@ int hamintonianPath(int src, int osrc, vector<bool>&vis, int edgeCount, string p
         int idx = searchVtx(src, osrc);
         if(idx!=-1){
             cout<<"Cycle:"<<psf<<endl;
+ 
         } else {
             cout<<"Path: "<<psf<<endl;
         }
@@ -168,6 +170,74 @@ void constructGraph()
     display();
 }
 
+//BFS ====================================
+void BFS_01(int src, vector<bool>&vis){
+    queue<int>que;
+    
+    que.push(src);
+    
+    bool cycle = false;
+    while(que.size()!=0){
+        int vtx = que.front();
+        que.pop();
+        
+        cout<<vtx<<" "<<endl;
+        
+        if(vis[vtx]){
+            cycle = true;
+            continue;
+        }
+        
+        vis[vtx] = true;
+        for(Edge e : graph[vtx]){
+            if(!vis[e.v]){
+                que.push(e.v);
+            }
+        }
+    }
+}
+
+// Delimiter method
+void BFS_02(int src, int dest, vector<bool>&vis){
+    queue<int>que;
+    que.push(src);
+    que.push(-1);
+    
+    bool cycle = false;
+    int level = 0;
+    
+    while(que.size() != 1){
+        int vtx = que.front();
+        que.pop();
+        
+        if(vis[vtx]){
+            cycle = true;
+            continue;
+        }
+        
+        if(vtx == dest){
+            cout<<level;
+        }
+        
+        vis[vtx] = true;
+        for(Edge e: graph[vtx]){
+            if(!vis[e.v]){
+                que.push(e.v);
+            }
+        }
+        
+        if(que.front() == -1){
+            level++;
+            que.pop();
+            que.push(-1);
+        }
+    }
+}
+
+
+//automatically cycle handle ho jaegi
+void BFS_03(){}
+
 
 
 int main()
@@ -187,8 +257,10 @@ int main()
     
     // cout<<ans.first<<"@"<<ans.second<<endl;
     
-    cout<<hamintonianPath(0, 0, vis, 0, "")<<endl;
+    // cout<<hamintonianPath(0, 0, vis, 0, "")<<endl;
     
+    // BFS_01(0, vis);
+    BFS_02(0, 6, vis);
     
     
     
