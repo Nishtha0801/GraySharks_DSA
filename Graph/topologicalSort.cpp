@@ -78,6 +78,46 @@ void topoDFS(){
     //print
 }
 
+//BFS
+
+void TopoBFS(){
+    vector<int>ans;
+    vector<int>indegree(N,0);
+    
+    for(int i=0; i<N;i++){
+        for(Edge e : graph[i]){
+            indegree[e.v]++;
+        }
+    }
+    
+    queue<int>que;
+    for(int i=0;i<N;i++){
+        if(indegree[i] == 0){
+            que.push(i);
+        }
+    }
+    
+    while(que.size() != 0){
+        int vtx = que.front();
+        que.pop();
+        
+        ans.push_back(vtx);
+        for(Edge e : graph[vtx]){
+            if(--indegree[e.v] == 0){
+                que.push(e.v);
+            }
+        }
+    }
+    
+    if(ans.size() != N){
+        cout<<"There is a cycle"<<endl;
+    } else {
+        cout<<"No cycle"<<endl;
+    }
+    
+    return;
+}
+
 
 
 int main()

@@ -230,3 +230,83 @@ public:
         return -1;
 
     }
+
+    // leetcode 207
+    class Solution {
+public:
+    bool canFinish(int N, vector<vector<int>>& arr) {
+        // kahn's algo!
+        vector<vector<int>>graph(N, vector<int>());
+
+        vector<int>indegree(N, 0);
+
+        for(vector<int> a: arr){
+            indegree[a[1]]++;
+            graph[a[0]].push_back(a[1]);
+        }
+
+        queue<int>que;
+        for(int i=0;i<N;i++){
+            if(indegree[i] == 0){
+                que.push(i);
+            }
+        }
+
+        int count = 0;
+        while(que.size() != 0){
+            int vtx = que.front();
+            que.pop();
+            count++;
+
+            for(int e : graph[vtx]){
+                if(--indegree[e] == 0){
+                    que.push(e);
+                }
+            }
+        }
+
+        return count == N;
+
+    }
+};
+
+// leetcode 210
+class Solution {
+public:
+    vector<int> findOrder(int N, vector<vector<int>>& arr) {
+        vector<vector<int>>graph(N, vector<int>());
+
+        vector<int>indegree(N, 0);
+        for(vector<int>a : arr){
+            indegree[a[1]]++;
+            graph[a[0]].push_back(a[1]);
+        }
+
+        queue<int>que;
+        for(int i=0;i<N;i++){
+            if(indegree[i] == 0){
+                que.push(i);
+            }
+        }
+
+        vector<int>ans(N, 0);
+        int idx = N-1;
+        while(que.size() != 0){
+            int vtx = que.front();
+            que.pop();
+
+            ans[idx--] = vtx;
+            for(int e: graph[vtx]){
+                if(--indegree[e] == 0){
+                    que.push(e);
+                }
+            }
+        }
+        
+        if(idx == -1){
+            return ans;
+        }
+
+        return {};
+    }
+};
